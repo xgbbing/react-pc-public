@@ -7,7 +7,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '@umijs/max',
+    title: 'React PC Public',
   },
   routes: [
     {
@@ -29,7 +29,27 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
+    {
+      name: 'app1',
+      path: '/react-pc-app',
+      redirect: '/react-pc-app/home',
+    },
+    {
+      path: '/react-pc-app/*',
+      microApp: 'react-pc-app',
+      hideInMenu: true,
+    },
   ],
   npmClient: 'pnpm',
-  utoopack: {},
+  // utoopack: {},
+  qiankun: {
+    master: {
+      apps: [
+        {
+          name: 'react-pc-app',
+          entry: '//localhost:8000',
+        },
+      ],
+    },
+  },
 });
