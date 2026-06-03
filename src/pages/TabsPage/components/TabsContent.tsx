@@ -1,9 +1,9 @@
-import useStepsInfo from '@/hooks/stepsInfoContext/useStepsInfo';
+import useCommonInfo from '@/context/commonContext/useCommonInfo';
 import { Button, Space } from 'antd';
 import React from 'react';
 
 const TabsContent: React.FC = () => {
-  const { state, updatedStepsKey } = useStepsInfo();
+  const { state, updatedStepsKey } = useCommonInfo();
   return (
     <div>
       <Space>

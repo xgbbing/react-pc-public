@@ -1,11 +1,11 @@
 import useUrlState from '@ahooksjs/use-url-state';
 import { useCallback, useContext } from 'react';
-import { StepsContext, StepsDispatchContext } from './index';
+import { CommonContext, CommonDispatchContext } from './index';
 
-export default function useStepsInfo() {
+export default function useCommonInfo() {
   const setUrlState = useUrlState()[1];
-  const state = useContext(StepsContext);
-  const dispatch = useContext(StepsDispatchContext);
+  const state = useContext(CommonContext);
+  const dispatch = useContext(CommonDispatchContext);
 
   const updatedStepsKey = useCallback(
     (newInfo: any) => {

@@ -1,11 +1,11 @@
-import { StepsProvider } from '@/hooks/stepsInfoContext';
+import { CommonProvider } from '@/context/commonContext';
 import TabsContent from './components/TabsContent';
 
 const TabsPage: React.FC = () => {
   return (
-    <StepsProvider>
+    <CommonProvider>
       <TabsContent />
-    </StepsProvider>
+    </CommonProvider>
   );
 };
 
