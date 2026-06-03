@@ -12,10 +12,12 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@ahooksjs/use-url-state": "^3.5.1",
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
     "@umijs/max": "^4.6.57",
-    "antd": "^5.4.0"
+    "antd": "^5.4.0",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",
