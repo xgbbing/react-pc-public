@@ -17,6 +17,7 @@
     "@ant-design/pro-components": "^2.4.4",
     "@umijs/max": "^4.6.57",
     "antd": "^5.4.0",
+    "auto-log-sdk": "^1.0.1",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
