@@ -59,7 +59,7 @@ const HomePage: React.FC = () => {
           closable={false}
           onClose={handleClose}
           open={drawerOpen}
-          destroyOnClose
+          destroyOnHidden
           afterOpenChange={(open) => {
             if (open) {
               setMicroAppVisible(true);
