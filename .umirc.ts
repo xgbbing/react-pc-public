@@ -74,6 +74,11 @@ const routes = [
     path: '/tabs',
     component: './TabsPage',
   },
+  {
+    name: '测试页面',
+    path: '/test',
+    component: './TestPage',
+  },
 ];
 
 export default defineConfig({
