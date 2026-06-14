@@ -1,6 +1,8 @@
 // 运行时配置
 import HeaderCity from '@/components/HeaderCity';
 import { useModel } from '@umijs/max';
+
+import logo from '@/assets/logo.png';
 import {
   ApiPlugin,
   JsErrorPlugin,
@@ -8,11 +10,21 @@ import {
   PVPlugin,
   PerformancePlugin,
   ResourceErrorPlugin,
+  envEnum,
 } from 'auto-log-sdk';
+import packageJson from '../package.json';
+
+console.log(process.env.NODE_ENV, '=====env111');
+
+const env = process.env.NODE_ENV;
+const log_api = process.env.LOG_API;
 
 // 初始化前端监控 SDK
 const monitor = new Monitor({
-  appId: 'react-pc-public',
+  app_id: 'react-pc-public',
+  env: env as envEnum,
+  biz_version: packageJson.version,
+  log_api,
   plugins: [
     [ApiPlugin, {}],
     [ResourceErrorPlugin, {}],
@@ -39,10 +51,9 @@ export function useQiankunStateForSlave() {
 }
 export const layout = () => {
   return {
-    title: 'React PC Public',
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    title: 'Alice.Xu的合集',
+    logo: logo,
     layout: 'mix',
-
     menu: {
       locale: false,
     },

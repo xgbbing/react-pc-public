@@ -77,6 +77,8 @@ const routes = [
 ];
 
 export default defineConfig({
+  favicons: ['logo.png'],
+  define: { 'process.env.LOG_API': process.env.LOG_API },
   antd: {},
   access: {},
   model: {},
