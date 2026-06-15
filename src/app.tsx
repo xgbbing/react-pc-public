@@ -1,6 +1,6 @@
 // 运行时配置
 import HeaderCity from '@/components/HeaderCity';
-import { useModel } from '@umijs/max';
+import { useModel, RunTimeLayoutConfig } from '@umijs/max';
 
 import logo from '@/assets/logo.png';
 import {
@@ -13,8 +13,6 @@ import {
   envEnum,
 } from 'auto-log-sdk';
 import packageJson from '../package.json';
-
-console.log(process.env.NODE_ENV, '=====env111');
 
 const env = process.env.NODE_ENV;
 const log_api = process.env.LOG_API;
@@ -34,7 +32,7 @@ const monitor = new Monitor({
   ],
 });
 
-monitor.install();
+// monitor.install();
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -49,10 +47,11 @@ export function useQiankunStateForSlave() {
     setCity: globalModel.setCity,
   };
 }
-export const layout = () => {
+export const layout: RunTimeLayoutConfig = () => {
   return {
     title: 'Alice.Xu的合集',
     logo: logo,
+    locale: 'zh-CN',
     layout: 'mix',
     menu: {
       locale: false,
@@ -63,5 +62,9 @@ export const layout = () => {
         {dom}
       </div>
     ),
+    logout: async () => {
+      // await logout();
+      window.location.reload();
+    },
   };
 };
