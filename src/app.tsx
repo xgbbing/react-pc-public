@@ -1,8 +1,15 @@
 // 运行时配置
 import HeaderCity from '@/components/HeaderCity';
-import { useModel, RunTimeLayoutConfig } from '@umijs/max';
+import {
+  RequestConfig,
+  RunTimeLayoutConfig,
+  history,
+  useModel,
+} from '@umijs/max';
+import { message } from 'antd';
 
 import logo from '@/assets/logo.png';
+import { logout } from '@/services/accountService';
 import {
   ApiPlugin,
   JsErrorPlugin,
@@ -15,14 +22,14 @@ import {
 import packageJson from '../package.json';
 
 const env = process.env.NODE_ENV;
-const log_api = process.env.LOG_API;
+// const log_api = process.env.LOG_API;
 
 // 初始化前端监控 SDK
 const monitor = new Monitor({
   app_id: 'react-pc-public',
   env: env as envEnum,
   biz_version: packageJson.version,
-  log_api,
+  // log_api,
   plugins: [
     [ApiPlugin, {}],
     [ResourceErrorPlugin, {}],
@@ -32,7 +39,7 @@ const monitor = new Monitor({
   ],
 });
 
-// monitor.install();
+monitor.install();
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -63,8 +70,28 @@ export const layout: RunTimeLayoutConfig = () => {
       </div>
     ),
     logout: async () => {
-      // await logout();
-      window.location.reload();
+      await logout();
+      history.push('/login');
     },
   };
+};
+
+export const request: RequestConfig = {
+  timeout: 30000,
+  errorConfig: {
+    errorHandler(error: any) {
+      message.error(error?.message || '请求失败，请稍后再试');
+    },
+    errorThrower() {},
+  },
+  requestInterceptors: [],
+  responseInterceptors: [
+    // 直接写一个 function，作为拦截器
+    (response) => {
+      // 不再需要异步处理读取返回体内容，可直接在data中读出，部分字段可在 config 中找到
+      const { data = {} as any } = response;
+      if (data.code === 200) return response;
+      throw Error(data.message);
+    },
+  ],
 };

@@ -1,6 +1,6 @@
 import { defineConfig } from '@umijs/max';
-import { routes } from './src/routes';
 import { apps } from './src/qiankun';
+import { routes } from './src/routes';
 
 export default defineConfig({
   favicons: ['logo.png'],
@@ -21,6 +21,13 @@ export default defineConfig({
   qiankun: {
     master: {
       apps,
+    },
+  },
+  proxy: {
+    '/api': {
+      target: 'https://xgbbing.win/api',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
     },
   },
 });

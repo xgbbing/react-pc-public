@@ -9,6 +9,13 @@ export const routes = [
     component: './Home',
   },
   {
+    name: '登录',
+    path: '/login',
+    component: './Login',
+    layout: false,
+    hideInMenu: true,
+  },
+  {
     name: '测试页面',
     path: '/test',
     component: './TestPage',
@@ -59,6 +66,6 @@ export const routes = [
         path: '/test/tabs',
         component: './TabsPage',
       },
-    ]
+    ],
   },
 ];
