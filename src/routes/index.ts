@@ -32,16 +32,16 @@ export const routes = [
         layout: false,
       },
       {
-        name: 'app1',
+        name: 'app1应用',
         path: '/test/app1',
       },
       {
-        path: 'test/app1/*',
+        path: '/test/app1/*',
         microApp: 'app1',
         hideInMenu: true,
       },
       {
-        name: 'app2',
+        name: 'app2应用',
         path: '/test/app2',
       },
       {

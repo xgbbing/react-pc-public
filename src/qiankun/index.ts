@@ -2,11 +2,13 @@
 const microApps = [
   {
     name: 'app1',
-    entry: 'https://xgbbing.win/app1',
+    // entry: 'https://xgbbing.win/app1',
+    entry: 'http://localhost:8001/app1',
   },
   {
     name: 'app2',
-    entry: 'https://xgbbing.win/app2',
+    // entry: 'https://xgbbing.win/app2',
+    entry: 'http://localhost:8000/app2',
   },
 ];
 

@@ -25,14 +25,14 @@ const TabCache: React.FC = () => {
           <div key="app1">
             <MicroAppWithMemoHistory
               name="app1-embed"
-              url="/app1/home"
+              url="/app1/"
               autoSetLoading
             />
           </div>
           <div key="app2">
             <MicroAppWithMemoHistory
               name="app2-embed"
-              url="/app2/home"
+              url="/app2/"
               autoSetLoading
             />
           </div>
