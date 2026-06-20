@@ -1,12 +1,12 @@
 // 路由模式子应用配置
 const microApps = [
   {
-    name: 'react-pc-app1',
-    entry: '//localhost:8000',
+    name: 'app1',
+    entry: 'https://xgbbing.win/app1',
   },
   {
-    name: 'react-pc-app2',
-    entry: '//localhost:8003',
+    name: 'app2',
+    entry: 'https://xgbbing.win/app2',
   },
 ];
 

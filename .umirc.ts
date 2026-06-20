@@ -15,6 +15,8 @@ export default defineConfig({
   layout: {
     title: 'Alice.Xu',
   },
+  base: '/',
+  publicPath: '/',
   routes,
   npmClient: 'pnpm',
   // utoopack: {},

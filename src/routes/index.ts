@@ -1,11 +1,7 @@
 export const routes = [
   {
-    path: '/',
-    redirect: '/home',
-  },
-  {
     name: '首页',
-    path: '/home',
+    path: '/',
     component: './Home',
   },
   {
@@ -18,7 +14,6 @@ export const routes = [
   {
     name: '测试页面',
     path: '/test',
-    component: './TestPage',
     routes: [
       {
         name: '权限演示',
@@ -38,22 +33,20 @@ export const routes = [
       },
       {
         name: 'app1',
-        path: '/test/react-pc-app1',
-        redirect: '/react-pc-app1/home',
+        path: '/test/app1',
       },
       {
-        path: '/test/react-pc-app1/*',
-        microApp: 'react-pc-app1',
+        path: 'test/app1/*',
+        microApp: 'app1',
         hideInMenu: true,
       },
       {
         name: 'app2',
-        path: '/test/react-pc-app2',
-        redirect: '/react-pc-app2/home',
+        path: '/test/app2',
       },
       {
-        path: '/test/react-pc-app2/*',
-        microApp: 'react-pc-app2',
+        path: '/test/app2/*',
+        microApp: 'app2',
         hideInMenu: true,
       },
       {
