@@ -24,14 +24,14 @@ const TabCache: React.FC = () => {
         <KeepAlive activeKey={activeTab}>
           <div key="app1">
             <MicroAppWithMemoHistory
-              name="app1-embed"
+              name="react-pc-app1-embed"
               url="/app1/"
               autoSetLoading
             />
           </div>
           <div key="app2">
             <MicroAppWithMemoHistory
-              name="app2-embed"
+              name="react-pc-app2-embed"
               url="/app2/"
               autoSetLoading
             />

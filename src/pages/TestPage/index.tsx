@@ -63,8 +63,8 @@ const TestPage: React.FC = () => {
         >
           {microAppVisible && (
             <MicroAppWithMemoHistory
-              name="app2-embed"
-              url="/app2/home"
+              name="react-pc-app2-embed"
+              url="/app2/"
               autoSetLoading
               city={city}
               setCity={setCity}
