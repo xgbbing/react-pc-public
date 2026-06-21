@@ -22,14 +22,14 @@ import {
 import packageJson from '../package.json';
 
 const env = process.env.NODE_ENV;
-// const log_api = process.env.LOG_API;
+const log_api = process.env.LOG_API;
 
 // 初始化前端监控 SDK
 const monitor = new Monitor({
   app_id: 'react-pc-public',
   env: env as envEnum,
   biz_version: packageJson.version,
-  // log_api,
+  log_api,
   plugins: [
     [ApiPlugin, {}],
     [ResourceErrorPlugin, {}],
