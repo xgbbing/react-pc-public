@@ -1,12 +1,17 @@
 import image3 from '@/assets/image3.png';
 import image4 from '@/assets/image4.png';
 import useCommonInfo from '@/context/commonContext/useCommonInfo';
+import { getUrlParameter } from '@/utils/format';
 import { Button, Space } from 'antd';
 import SliderCaptcha from 'rc-slider-captcha';
 import React from 'react';
 
 const TabsContent: React.FC = () => {
   const { state, updatedStepsKey } = useCommonInfo();
+
+  // 使用示例
+  const key = getUrlParameter('key');
+  console.log(key);
 
   return (
     <div>

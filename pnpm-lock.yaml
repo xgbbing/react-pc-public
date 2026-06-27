@@ -32,6 +32,9 @@ importers:
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
+      use-query-params:
+        specifier: ^2.2.2
+        version: 2.2.2(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: ^18.3.31
@@ -5877,6 +5880,9 @@ packages:
     resolution: {integrity: sha512-VMbMxbDeehAxpOtWJXlcUS5E8iXh6QmN+BkRX1GARS3wRaXEEgzCcB10gTQazO42tpNIya8xIyNx8fll1OFPrg==}
     engines: {node: '>= 0.8.0'}
 
+  serialize-query-params@2.0.4:
+    resolution: {integrity: sha512-y9WzzDj3BsGgKLCh0ugiinufS//YqOfao/yVJjkXA4VLuyNCfHOLU/cbulGPxs3aeCqhvROw7qPL04JSZnCo0w==}
+
   serve-static@1.16.3:
     resolution: {integrity: sha512-x0RTqQel6g5SY7Lg6ZreMmsOzncHFU7nhnRWkKgWuMTu5NN0DR5oruckMqRvacAN9d5w6ARnRBXl9xhDCgfMeA==}
     engines: {node: '>= 0.8.0'}
@@ -6473,6 +6479,19 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
       '@types/react':
+        optional: true
+
+  use-query-params@2.2.2:
+    resolution: {integrity: sha512-OwGab8u8/x2xZp9uSyBsx0kXlkR9IR436zbygsYVGikPYY3OJosvve6IJVGwIJPcfyb/YHwvPrUNu65/JR++Kw==}
+    peerDependencies:
+      '@reach/router': ^1.2.1
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-router-dom: '>=5'
+    peerDependenciesMeta:
+      '@reach/router':
+        optional: true
+      react-router-dom:
         optional: true
 
   use-sync-external-store@1.2.0:
@@ -13894,6 +13913,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  serialize-query-params@2.0.4: {}
+
   serve-static@1.16.3:
     dependencies:
       encodeurl: 2.0.0
@@ -14585,6 +14606,14 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       '@types/react': 18.3.31
+
+  use-query-params@2.2.2(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      serialize-query-params: 2.0.4
+    optionalDependencies:
+      react-router-dom: 6.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   use-sync-external-store@1.2.0(react@18.3.1):
     dependencies:
