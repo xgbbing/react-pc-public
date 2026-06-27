@@ -5,9 +5,9 @@ import { getUrlParameter } from '@/utils/format';
 import { useDebounceFn, useMemoizedFn, useRequest } from 'ahooks';
 import { Button, message, Space } from 'antd';
 import SliderCaptcha from 'rc-slider-captcha';
-import React, { useEffect } from 'react';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-const TabsContent: React.FC = () => {
+const TabsContent = ({}, ref: any) => {
   const { state, updatedStepsKey } = useCommonInfo();
   const text = 'Hello, world!';
   // 使用示例
@@ -44,6 +44,10 @@ const TabsContent: React.FC = () => {
     runDebounce();
     runRequest();
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    create,
+  }));
 
   return (
     <div>
@@ -85,4 +89,4 @@ const TabsContent: React.FC = () => {
   );
 };
 
-export default TabsContent;
+export default forwardRef(TabsContent);
