@@ -9,13 +9,15 @@ const TabsPage: React.FC = () => {
   return (
     <CommonProvider>
       <TabsContent ref={ref} />
-      <Button
-        onClick={() => {
-          ref.current.create();
-        }}
-      >
-        test
-      </Button>
+      <div>
+        <Button
+          onClick={() => {
+            ref.current.create();
+          }}
+        >
+          test
+        </Button>
+      </div>
     </CommonProvider>
   );
 };
