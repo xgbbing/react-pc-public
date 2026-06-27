@@ -12,14 +12,18 @@
     "setup": "max setup",
     "start": "npm run dev"
   },
+  "resolutions": {},
+  "overrides": {},
   "dependencies": {
     "@ahooksjs/use-url-state": "^3.5.1",
     "@ant-design/icons": "^5.6.1",
     "@ant-design/pro-components": "^2.8.10",
     "@umijs/max": "^4.6.63",
+    "ahooks": "^3.9.7",
     "antd": "^5.29.3",
     "auto-log-sdk": "^1.0.4",
     "rc-slider-captcha": "^1.9.0",
+    "react-copy-to-clipboard": "^5.1.1",
     "unstated-next": "^1.1.0",
     "use-query-params": "^2.2.2"
   },
