@@ -6,7 +6,7 @@ import { login, register } from '@/services/accountService';
 import { sha256 } from '@/utils/crypto';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { history } from '@umijs/max';
+import { history, useModel } from '@umijs/max';
 import { App, Button } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
@@ -18,6 +18,8 @@ const Login = () => {
   );
 
   const { message } = App.useApp();
+
+  const { setInitialState } = useModel('@@initialState');
 
   // 切换登录/注册模式时重置验证码状态
   useEffect(() => {
@@ -38,10 +40,18 @@ const Login = () => {
 
     if (isRegister) {
       await register(payload);
-      await login(payload);
+      const res = await login(payload);
+      setInitialState((prevState) => ({
+        ...prevState,
+        name: res.username,
+      }));
       message.success(`注册成功！用户名: ${values.username}`);
     } else {
-      await login(payload);
+      const res = await login(payload);
+      setInitialState((prevState) => ({
+        ...prevState,
+        name: res.username,
+      }));
       message.success(`登录成功！用户名: ${values.username}`);
     }
     history.push('/');

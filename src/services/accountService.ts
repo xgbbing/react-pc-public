@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from '@/constants';
+import { TOKEN_KEY, USERNAME_KEY } from '@/constants';
 import { request } from '@umijs/max';
 
 export async function register(body?: API_Params, options?: API_Params) {
@@ -22,9 +22,10 @@ export async function login(body?: API_Params, options?: API_Params) {
     ...(options || {}),
   });
 
-  const token = response.data;
-  localStorage.setItem(TOKEN_KEY, token); // 持久化存储
-  return response;
+  const res = response.data;
+  localStorage.setItem(TOKEN_KEY, res.token); // 持久化存储
+  localStorage.setItem(USERNAME_KEY, res.username); // 存储 username
+  return res;
 }
 
 export async function logout(body?: API_Params, options?: API_Params) {
@@ -37,5 +38,6 @@ export async function logout(body?: API_Params, options?: API_Params) {
     ...(options || {}),
   });
   localStorage.removeItem(TOKEN_KEY); // 清除本地 Token
+  localStorage.removeItem(USERNAME_KEY); // 清除本地 username
   return response;
 }

@@ -20,7 +20,7 @@ import {
   envEnum,
 } from 'auto-log-sdk';
 import packageJson from '../package.json';
-import { TOKEN_KEY } from './constants';
+import { TOKEN_KEY, USERNAME_KEY } from './constants';
 
 const env = process.env.NODE_ENV;
 const log_api = process.env.LOG_API;
@@ -45,7 +45,7 @@ monitor.install();
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{ name: string }> {
-  return { name: 'Alice.Xu' };
+  return { name: localStorage.getItem(USERNAME_KEY) || '访客' };
 }
 
 export function rootContainer(container: React.ReactNode) {
@@ -109,6 +109,7 @@ export const request: RequestConfig = {
       if (data.code === 200) return response;
       if (data.code === 401) {
         localStorage.removeItem(TOKEN_KEY); // 清除本地 Token
+        localStorage.removeItem(USERNAME_KEY); // 清除本地 username
         history.push('/login');
       }
       throw Error(data.message);

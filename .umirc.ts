@@ -15,7 +15,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: 'Alice.Xu',
+    // title: 'Alice.Xu',
   },
   base: '/',
   publicPath: '/',
