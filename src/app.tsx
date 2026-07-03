@@ -25,7 +25,10 @@ import { TOKEN_KEY, USERNAME_KEY } from './constants';
 const env = process.env.NODE_ENV;
 const log_api = process.env.LOG_API;
 
-window.xgb_env = process.env;
+window.xgb_env = {
+  env,
+  log_api,
+};
 
 // 初始化前端监控 SDK
 const monitor = new Monitor({
