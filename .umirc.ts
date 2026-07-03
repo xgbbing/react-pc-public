@@ -10,6 +10,7 @@ export default defineConfig({
   antd: {
     // dark: true,
   },
+  clientLoader: {},
   access: {},
   model: {},
   initialState: {},

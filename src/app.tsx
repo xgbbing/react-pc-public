@@ -64,6 +64,7 @@ export function useQiankunStateForSlave() {
     setCity: globalModel.setCity,
   };
 }
+
 export const layout: RunTimeLayoutConfig = () => {
   return {
     title: 'Alice.Xu的合集',
