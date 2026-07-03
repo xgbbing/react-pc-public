@@ -6,7 +6,7 @@ import {
   history,
   useModel,
 } from '@umijs/max';
-import { message } from 'antd';
+import { App, message } from 'antd';
 
 import logo from '@/assets/logo.png';
 import { logout } from '@/services/accountService';
@@ -20,6 +20,7 @@ import {
   envEnum,
 } from 'auto-log-sdk';
 import packageJson from '../package.json';
+import { TOKEN_KEY } from './constants';
 
 const env = process.env.NODE_ENV;
 const log_api = process.env.LOG_API;
@@ -45,6 +46,10 @@ monitor.install();
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{ name: string }> {
   return { name: 'Alice.Xu' };
+}
+
+export function rootContainer(container: React.ReactNode) {
+  return <App>{container}</App>;
 }
 
 export function useQiankunStateForSlave() {
@@ -84,13 +89,28 @@ export const request: RequestConfig = {
     },
     errorThrower() {},
   },
-  requestInterceptors: [],
+  requestInterceptors: [
+    (url, options) => {
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        options.headers = {
+          ...options.headers,
+          Authorization: `Bearer ${token}`, // 统一添加鉴权头
+        };
+      }
+      return { url, options };
+    },
+  ],
   responseInterceptors: [
     // 直接写一个 function，作为拦截器
     (response) => {
       // 不再需要异步处理读取返回体内容，可直接在data中读出，部分字段可在 config 中找到
       const { data = {} as any } = response;
       if (data.code === 200) return response;
+      if (data.code === 401) {
+        localStorage.removeItem(TOKEN_KEY); // 清除本地 Token
+        history.push('/login');
+      }
       throw Error(data.message);
     },
   ],

@@ -1,16 +1,49 @@
 import logo from '@/assets/logo.png';
-import { testregister } from '@/services/accountService';
+import SliderCaptchaBlock, {
+  type CaptchaStatus,
+} from '@/components/SliderCaptchaBlock';
+import { login, register } from '@/services/accountService';
+import { sha256 } from '@/utils/crypto';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { history } from '@umijs/max';
-import { message } from 'antd';
+import { App, Button } from 'antd';
+import { useEffect, useRef, useState } from 'react';
 
 const Login = () => {
+  const [isRegister, setIsRegister] = useState(false);
+  const [captchaStatus, setCaptchaStatus] = useState<CaptchaStatus>('pending');
+  const captchaRef = useRef<{ refresh: (resetErrorCount?: boolean) => void }>(
+    null,
+  );
+
+  const { message } = App.useApp();
+
+  // 切换登录/注册模式时重置验证码状态
+  useEffect(() => {
+    setCaptchaStatus('pending');
+  }, [isRegister]);
+
   const handleSubmit = async (values: any) => {
-    console.log('Login attempt:', values);
-    // 这里可以添加实际的登录逻辑
-    await testregister(values);
-    message.success(`登录成功！用户名: ${values.username}`);
+    // 注册模式下验证码未通过时阻止提交（兜底校验）
+    if (isRegister && captchaStatus !== 'success') {
+      message.warning('请先完成滑块验证');
+      return;
+    }
+
+    const payload = {
+      ...values,
+      password: sha256(values.password),
+    };
+
+    if (isRegister) {
+      await register(payload);
+      await login(payload);
+      message.success(`注册成功！用户名: ${values.username}`);
+    } else {
+      await login(payload);
+      message.success(`登录成功！用户名: ${values.username}`);
+    }
     history.push('/');
   };
 
@@ -26,8 +59,16 @@ const Login = () => {
     >
       <LoginForm
         logo={logo}
-        title="登录"
+        title={isRegister ? '注册' : '登录'}
         subTitle="欢迎使用Alice.Xu的系统"
+        submitter={{
+          searchConfig: {
+            submitText: isRegister ? '注册并登录' : '登 录',
+          },
+          submitButtonProps: {
+            disabled: isRegister && captchaStatus !== 'success',
+          },
+        }}
         onFinish={async (values) => {
           await handleSubmit(values);
         }}
@@ -37,21 +78,22 @@ const Login = () => {
           fieldProps={{
             size: 'large',
             prefix: <UserOutlined className={'prefixIcon'} />,
-            maxLength: 16, // 用户名最大长度16位
+            minLength: 2, // 用户名最小长度2位
+            maxLength: 18, // 用户名最大长度18位
           }}
-          placeholder={'用户名 (最多16位)'}
+          placeholder={'用户名 (2-18位)'}
           rules={[
             {
               required: true,
               message: '请输入用户名!',
             },
             {
-              min: 3,
-              message: '用户名至少3位',
+              min: 2,
+              message: '用户名至少2位',
             },
             {
-              max: 16,
-              message: '用户名最多16位',
+              max: 18,
+              message: '用户名最多18位',
             },
           ]}
         />
@@ -60,10 +102,11 @@ const Login = () => {
           fieldProps={{
             size: 'large',
             prefix: <LockOutlined className={'prefixIcon'} />,
-            strengthText: '密码至少8位，且包含大小写字母、数字和符号',
+            strengthText: '密码6-18位',
+            minLength: 6, // 密码最小长度6位
             maxLength: 18, // 密码最大长度18位
           }}
-          placeholder={'密码 (最多18位)'}
+          placeholder={'密码 (6-18位)'}
           rules={[
             {
               required: true,
@@ -79,6 +122,41 @@ const Login = () => {
             },
           ]}
         />
+
+        {/* 注册模式下显示滑块验证码 */}
+        {isRegister && (
+          <SliderCaptchaBlock
+            ref={captchaRef}
+            onStatusChange={setCaptchaStatus}
+          />
+        )}
+
+        {isRegister && captchaStatus !== 'success' && (
+          <div
+            style={{
+              textAlign: 'center',
+              color: '#999',
+              fontSize: 12,
+              marginTop: -8,
+              marginBottom: 8,
+            }}
+          >
+            {captchaStatus === 'error'
+              ? '验证失败，请重试'
+              : '请完成滑块验证后点击注册'}
+          </div>
+        )}
+
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: 16,
+          }}
+        >
+          <Button type="link" onClick={() => setIsRegister((prev) => !prev)}>
+            {isRegister ? '已有账号？去登录' : '没有账号？去注册'}
+          </Button>
+        </div>
       </LoginForm>
     </div>
   );

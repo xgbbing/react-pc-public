@@ -1,11 +1,10 @@
-interface UserInfoVO {
-  username: string;
-  password?: string;
+interface API_Params {
+  [key: string]: any;
 }
 
-interface Result_UserInfo_ {
+interface API_Result {
   success?: boolean;
-  errorMessage?: string;
-  data?: UserInfo;
   code?: number;
+  data?: any;
+  message?: string;
 }

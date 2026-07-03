@@ -4,7 +4,9 @@ import { routes } from './src/routes';
 
 export default defineConfig({
   favicons: ['logo.png'],
-  define: { 'process.env.LOG_API': process.env.LOG_API },
+  define: {
+    'process.env': process.env,
+  },
   antd: {
     // dark: true,
   },
@@ -27,7 +29,7 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      target: 'https://xgbbing.win/api',
+      target: process.env.PROXY_API_URL,
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

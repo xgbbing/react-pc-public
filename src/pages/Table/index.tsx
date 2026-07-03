@@ -7,80 +7,13 @@ import {
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message } from 'antd';
+import { App, Button, Divider, Drawer } from 'antd';
 import React, { useRef, useState } from 'react';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 
 const { addUser, queryUserList, deleteUser, modifyUser } =
   services.UserController;
-
-/**
- * 添加节点
- * @param fields
- */
-const handleAdd = async (fields: API.UserInfo) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addUser({ ...fields });
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
-};
-
-/**
- * 更新节点
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('正在配置');
-  try {
-    await modifyUser(
-      {
-        userId: fields.id || '',
-      },
-      {
-        name: fields.name || '',
-        nickName: fields.nickName || '',
-        email: fields.email || '',
-      },
-    );
-    hide();
-
-    message.success('配置成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('配置失败请重试！');
-    return false;
-  }
-};
-
-/**
- *  删除节点
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.UserInfo[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await deleteUser({
-      userId: selectedRows.find((row) => row.id)?.id || '',
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
 
 const TableList: React.FC<unknown> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
@@ -90,6 +23,8 @@ const TableList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<API.UserInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
+  const { message } = App.useApp();
+
   const columns: ProDescriptionsItemProps<API.UserInfo>[] = [
     {
       title: '名称',
@@ -138,6 +73,73 @@ const TableList: React.FC<unknown> = () => {
       ),
     },
   ];
+
+  /**
+   * 添加节点
+   * @param fields
+   */
+  const handleAdd = async (fields: API.UserInfo) => {
+    const hide = message.loading('正在添加');
+    try {
+      await addUser({ ...fields });
+      hide();
+      message.success('添加成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('添加失败请重试！');
+      return false;
+    }
+  };
+
+  /**
+   * 更新节点
+   * @param fields
+   */
+  const handleUpdate = async (fields: FormValueType) => {
+    const hide = message.loading('正在配置');
+    try {
+      await modifyUser(
+        {
+          userId: fields.id || '',
+        },
+        {
+          name: fields.name || '',
+          nickName: fields.nickName || '',
+          email: fields.email || '',
+        },
+      );
+      hide();
+
+      message.success('配置成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('配置失败请重试！');
+      return false;
+    }
+  };
+
+  /**
+   *  删除节点
+   * @param selectedRows
+   */
+  const handleRemove = async (selectedRows: API.UserInfo[]) => {
+    const hide = message.loading('正在删除');
+    if (!selectedRows) return true;
+    try {
+      await deleteUser({
+        userId: selectedRows.find((row) => row.id)?.id || '',
+      });
+      hide();
+      message.success('删除成功，即将刷新');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('删除失败，请重试');
+      return false;
+    }
+  };
 
   return (
     <PageContainer

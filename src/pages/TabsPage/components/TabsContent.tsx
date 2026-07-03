@@ -1,15 +1,15 @@
-import image3 from '@/assets/image3.png';
-import image4 from '@/assets/image4.png';
 import useCommonInfo from '@/context/commonContext/useCommonInfo';
 import { getUrlParameter } from '@/utils/format';
 import { useDebounceFn, useMemoizedFn, useRequest } from 'ahooks';
-import { Button, message, Space } from 'antd';
-import SliderCaptcha from 'rc-slider-captcha';
+import { App, Button, Space } from 'antd';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 const TabsContent = ({}, ref: any) => {
   const { state, updatedStepsKey } = useCommonInfo();
   const text = 'Hello, world!';
+
+  const { message } = App.useApp();
+
   // 使用示例
   const key = getUrlParameter('key');
   console.log(key);
@@ -60,25 +60,6 @@ const TabsContent = ({}, ref: any) => {
           切换为tab1
         </Button>
       </Space>
-
-      <div>滑块验证码</div>
-      <div>
-        <SliderCaptcha
-          request={async () => {
-            return {
-              bgUrl: image3,
-              puzzleUrl: image4,
-            };
-          }}
-          onVerify={async (data) => {
-            console.log(data);
-            if (data.x < 120 || data.x > 140) {
-              return Promise.reject('验证失败');
-            }
-            return Promise.resolve();
-          }}
-        />
-      </div>
 
       <div>
         <CopyToClipboard text={text} onCopy={onCopy}>
