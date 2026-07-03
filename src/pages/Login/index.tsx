@@ -2,7 +2,7 @@ import logo from '@/assets/logo.png';
 import SliderCaptchaBlock, {
   type CaptchaStatus,
 } from '@/components/SliderCaptchaBlock';
-import { login, register } from '@/services/accountService';
+import { login, registerAndLogin } from '@/services/accountService';
 import { sha256 } from '@/utils/crypto';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
@@ -39,8 +39,7 @@ const Login = () => {
     };
 
     if (isRegister) {
-      await register(payload);
-      const res = await login(payload);
+      const res = await registerAndLogin(payload);
       setInitialState((prevState) => ({
         ...prevState,
         name: res.username,
