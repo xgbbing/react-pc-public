@@ -13,8 +13,8 @@ export async function registerAndLogin(
     data: body,
     ...(options || {}),
   });
-  localStorage.setItem(TOKEN_KEY, response.data.datatoken); // 持久化存储
-  localStorage.setItem(USERNAME_KEY, response.data.datausername); // 存储 username
+  localStorage.setItem(TOKEN_KEY, response.data.token); // 持久化存储
+  localStorage.setItem(USERNAME_KEY, response.data.username); // 存储 username
   return response.data;
 }
 
@@ -27,8 +27,8 @@ export async function login(body?: API_Params, options?: API_Params) {
     data: body,
     ...(options || {}),
   });
-  localStorage.setItem(TOKEN_KEY, response.data.datatoken); // 持久化存储
-  localStorage.setItem(USERNAME_KEY, response.data.datausername); // 存储 username
+  localStorage.setItem(TOKEN_KEY, response.data.token); // 持久化存储
+  localStorage.setItem(USERNAME_KEY, response.data.username); // 存储 username
   return response.data;
 }
 
