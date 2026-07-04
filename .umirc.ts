@@ -34,5 +34,10 @@ export default defineConfig({
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
+    '/docs': {
+      target: process.env.PROXY_DOCS_URL,
+      changeOrigin: true,
+      pathRewrite: { '^/docs': '' },
+    },
   },
 });

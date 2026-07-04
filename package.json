@@ -29,6 +29,9 @@
     "markdown-it": "^14.3.0",
     "rc-slider-captcha": "^1.9.0",
     "react-copy-to-clipboard": "^5.1.1",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
     "unstated-next": "^1.1.0",
     "use-query-params": "^2.2.2"
   },

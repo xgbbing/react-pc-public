@@ -2,17 +2,18 @@
 // import { trim } from '@/utils/format';
 import { PageContainer } from '@ant-design/pro-components';
 // import { useClientLoaderData } from '@umijs/max';
-import MarkdownViewer from '@/components/MarkdownViewer';
+// import MarkdownViewer from '@/components/MarkdownViewer';
+import DocViewer from '@/components/DocViewer';
 import React from 'react';
 import styles from './index.less';
 
-export async function clientLoader() {
-  const response = await fetch(
-    'https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md',
-  );
-  const markdownText = await response.text();
-  return { markdownText };
-}
+// export async function clientLoader() {
+//   const response = await fetch(
+//     'https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md',
+//   );
+//   const markdownText = await response.text();
+//   return { markdownText };
+// }
 
 const HomePage: React.FC = () => {
   // const { initialState } = useModel('@@initialState');
@@ -22,7 +23,8 @@ const HomePage: React.FC = () => {
   return (
     <PageContainer ghost>
       <div className={styles.container}>
-        <MarkdownViewer url="https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md" />
+        <DocViewer url="/docs/README.md" />
+        {/* <MarkdownViewer url="https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md" /> */}
         {/* 用户：{initialState?.name} */}
         {/* <Guide name={trim(name)} /> */}
         {/* <div>
