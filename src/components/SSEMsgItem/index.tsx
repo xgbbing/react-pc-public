@@ -1,3 +1,4 @@
+import { logger } from '@/utils/logger';
 import React, { FC, memo, useEffect, useRef, useState } from 'react';
 // import { createPortal } from 'react-dom';
 
@@ -28,7 +29,7 @@ const SSEMsgItem: FC<SSEMsgItemProps> = async (props) => {
   ) => {
     try {
       sseAbortController.current = new AbortController();
-      console.log(
+      logger(
         url,
         params,
         componentSource,
@@ -41,7 +42,7 @@ const SSEMsgItem: FC<SSEMsgItemProps> = async (props) => {
       // await fetchStreamData(url, params, onCompleted, () => { })
       await fetchStreamData();
     } catch (error) {
-      console.log('sse fail', error);
+      logger('sse fail', error);
     }
     return null;
   };
@@ -67,7 +68,7 @@ const SSEMsgItem: FC<SSEMsgItemProps> = async (props) => {
             });
           },
           () => {
-            console.log('sse end');
+            logger('sse completed');
           },
         );
       }

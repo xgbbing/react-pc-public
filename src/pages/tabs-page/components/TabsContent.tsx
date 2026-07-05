@@ -1,5 +1,6 @@
 import useCommonInfo from '@/context/commonContext/useCommonInfo';
 import { getUrlParameter } from '@/utils/format';
+import { logger } from '@/utils/logger';
 import { useDebounceFn, useMemoizedFn, useRequest } from 'ahooks';
 import { App, Button, Space } from 'antd';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
@@ -12,7 +13,7 @@ const TabsContent = ({}, ref: any) => {
 
   // 使用示例
   const key = getUrlParameter('key');
-  console.log(key);
+  logger(key, '====key');
 
   const { run: runRequest } = useRequest(
     async () => {
@@ -25,7 +26,7 @@ const TabsContent = ({}, ref: any) => {
     {
       manual: true,
       onSuccess: (res) => {
-        console.log(res);
+        logger(res, '====res');
       },
     },
   );
@@ -35,7 +36,7 @@ const TabsContent = ({}, ref: any) => {
   };
 
   const create = useMemoizedFn(() => {
-    console.log('create');
+    logger('create function called');
   });
 
   const { run: runDebounce } = useDebounceFn(() => create(), { wait: 1000 });

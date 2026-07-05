@@ -2,7 +2,7 @@ import logo from '@/assets/logo.png';
 import SliderCaptchaBlock, {
   type CaptchaStatus,
 } from '@/components/SliderCaptchaBlock';
-import { login, registerAndLogin } from '@/services/accountService';
+import { AccountService } from '@/services';
 import { sha256 } from '@/utils/crypto';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
@@ -39,14 +39,14 @@ const Login = () => {
     };
 
     if (isRegister) {
-      const res = await registerAndLogin(payload);
+      const res = await AccountService.registerAndLogin(payload);
       setInitialState((prevState) => ({
         ...prevState,
         name: res.username,
       }));
       message.success(`注册成功！用户名: ${values.username}`);
     } else {
-      const res = await login(payload);
+      const res = await AccountService.login(payload);
       setInitialState((prevState) => ({
         ...prevState,
         name: res.username,

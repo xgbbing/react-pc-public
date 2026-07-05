@@ -9,7 +9,7 @@ import {
 import { App, message } from 'antd';
 
 import logo from '@/assets/logo.png';
-import { logout } from '@/services/accountService';
+import { AccountService } from '@/services';
 import {
   ApiPlugin,
   JsErrorPlugin,
@@ -81,7 +81,7 @@ export const layout: RunTimeLayoutConfig = () => {
       </div>
     ),
     logout: async () => {
-      await logout();
+      await AccountService.logout();
       history.push('/login');
     },
   };

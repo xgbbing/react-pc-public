@@ -3,6 +3,7 @@ export const routes = [
     name: '首页',
     path: '/',
     component: './home',
+    icon: 'HomeOutlined',
   },
   {
     name: '登录',
@@ -14,11 +15,69 @@ export const routes = [
   {
     name: 'VPS配置',
     path: '/vps-config',
-    component: './vps-config',
+    icon: 'SettingOutlined',
+    routes: [
+      {
+        name: '总览',
+        path: '/vps-config/all',
+        component: './vps-config',
+      },
+      {
+        name: 'Docker Compose容器方案',
+        path: '/vps-config/docker-compose',
+        component: './vps-config',
+      },
+      {
+        name: 'Linux系统常用命令',
+        path: '/vps-config/linux-command',
+        component: './vps-config',
+      },
+      {
+        name: '缓存文件清理',
+        path: '/vps-config/cache-clear',
+        component: './vps-config',
+      },
+      {
+        name: '跨域浏览器开启',
+        path: '/vps-config/cross-domain',
+        component: './vps-config',
+      },
+      {
+        name: 'SSH密钥登录',
+        path: '/vps-config/ssh',
+        component: './vps-config',
+      },
+      {
+        name: 'SSH修改端口号',
+        path: '/vps-config/ssh-port',
+        component: './vps-config',
+      },
+      {
+        name: 'SSH修改密码',
+        path: '/vps-config/ssh-password',
+        component: './vps-config',
+      },
+      {
+        name: 'V2Ray和vmess',
+        path: '/vps-config/v2ray',
+        component: './vps-config',
+      },
+      {
+        name: 'VPN速度优化',
+        path: '/vps-config/vpn-speed',
+        component: './vps-config',
+      },
+      {
+        name: 'XRay-vless-reality',
+        path: '/vps-config/xray',
+        component: './vps-config',
+      },
+    ],
   },
   {
     name: '测试页面',
     path: '/test',
+    icon: 'CodeOutlined',
     routes: [
       {
         name: '权限演示',

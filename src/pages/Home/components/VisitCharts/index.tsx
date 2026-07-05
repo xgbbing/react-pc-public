@@ -1,8 +1,4 @@
-import {
-  getDailyVisits,
-  getMonthlyVisits,
-  getWeeklyVisits,
-} from '@/services/analyticsService';
+import { AnalyticsService } from '@/services';
 import { useRequest } from '@umijs/max';
 import { Card, Segmented, Spin } from 'antd';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
@@ -39,9 +35,9 @@ const periodOptions = [
 ];
 
 const periodApiMap: Record<PeriodType, () => Promise<any>> = {
-  daily: getDailyVisits,
-  weekly: getWeeklyVisits,
-  monthly: getMonthlyVisits,
+  daily: AnalyticsService.getDailyVisits,
+  weekly: AnalyticsService.getWeeklyVisits,
+  monthly: AnalyticsService.getMonthlyVisits,
 };
 
 const VisitCharts: React.FC = () => {
