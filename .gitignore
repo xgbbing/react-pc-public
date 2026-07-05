@@ -14,3 +14,4 @@
 .turbopack
 .env
 .env.local
+mock/analytics.ts
