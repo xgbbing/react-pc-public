@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
   // const { data } = useClientLoaderData();
 
   return (
-    <PageContainer ghost>
+    <PageContainer ghost title={false}>
       <div className={styles.container}>
         <DocViewer url="/docs/README.md" />
         {/* <MarkdownViewer url="https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md" /> */}
