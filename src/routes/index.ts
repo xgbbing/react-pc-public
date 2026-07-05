@@ -2,14 +2,19 @@ export const routes = [
   {
     name: '首页',
     path: '/',
-    component: './Home',
+    component: './home',
   },
   {
     name: '登录',
     path: '/login',
-    component: './Login',
+    component: './login',
     layout: false,
     hideInMenu: true,
+  },
+  {
+    name: 'VPS配置',
+    path: '/vps-config',
+    component: './vps-config',
   },
   {
     name: '测试页面',
@@ -18,7 +23,7 @@ export const routes = [
       {
         name: '权限演示',
         path: '/test/access',
-        component: './Access',
+        component: './access',
       },
       // {
       //   name: ' CRUD 示例',
@@ -45,17 +50,17 @@ export const routes = [
       {
         name: 'tab切换缓存',
         path: '/test/tab-cache',
-        component: './TabCache',
+        component: './tab-cache',
       },
       {
         name: '测试页面',
         path: '/test/test-page',
-        component: './TestPage',
+        component: './test-page',
       },
       {
         name: 'Reducer示例',
         path: '/test/tabs',
-        component: './TabsPage',
+        component: './tabs-page',
       },
     ],
   },

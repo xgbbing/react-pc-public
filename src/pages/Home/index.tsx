@@ -3,7 +3,7 @@
 import { PageContainer } from '@ant-design/pro-components';
 // import { useClientLoaderData } from '@umijs/max';
 // import MarkdownViewer from '@/components/MarkdownViewer';
-import DocViewer from '@/components/DocViewer';
+// import DocViewer from '@/components/DocViewer';
 import React from 'react';
 import styles from './index.less';
 
@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
   return (
     <PageContainer ghost title={false}>
       <div className={styles.container}>
-        <DocViewer url="/docs/README.md" />
+        {/* <DocViewer url="/docs/README.md" /> */}
         {/* <MarkdownViewer url="https://raw.githubusercontent.com/xgbbing/vps-config/main/README.md" /> */}
         {/* 用户：{initialState?.name} */}
         {/* <Guide name={trim(name)} /> */}
