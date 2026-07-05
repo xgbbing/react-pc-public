@@ -22,6 +22,7 @@ export default defineConfig({
   publicPath: '/',
   routes,
   npmClient: 'pnpm',
+  hash: true,
   // utoopack: {},
   qiankun: {
     master: {
