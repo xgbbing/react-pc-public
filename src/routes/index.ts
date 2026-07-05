@@ -23,7 +23,7 @@ export const routes = [
         component: './vps-config',
       },
       {
-        name: 'Docker Compose容器方案',
+        name: 'DockerCompose容器方案',
         path: '/vps-config/docker-compose',
         component: './vps-config',
       },

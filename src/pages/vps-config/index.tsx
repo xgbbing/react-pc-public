@@ -1,4 +1,4 @@
-import DocViewer from '@/components/DocViewer';
+import DocsViewer from '@/components/DocsViewer';
 import { PageContainer } from '@ant-design/pro-components';
 import { useLocation } from '@umijs/max';
 import React from 'react';
@@ -6,7 +6,7 @@ import React from 'react';
 const VPSConfig: React.FC = () => {
   const { pathname } = useLocation();
   const pageMap: any = {
-    '/vps-config/docker-compose': 'Docker Compose容器方案',
+    '/vps-config/docker-compose': 'DockerCompose容器方案',
     '/vps-config/linux-command': 'Linux系统常用命令',
     '/vps-config/cache-clear': '缓存文件清理',
     '/vps-config/cross-domain': '跨域浏览器开启',
@@ -23,7 +23,7 @@ const VPSConfig: React.FC = () => {
   return (
     <PageContainer ghost title={false}>
       <div>
-        <DocViewer url={url} />
+        <DocsViewer url={url} />
       </div>
     </PageContainer>
   );
