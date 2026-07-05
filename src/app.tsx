@@ -67,6 +67,10 @@ export function useQiankunStateForSlave() {
 
 export const layout: RunTimeLayoutConfig = () => {
   return {
+    token: {
+      // 修改内容区域的背景色
+      bgLayout: '#fff',
+    },
     title: 'Alice.Xu的合集',
     logo: logo,
     locale: 'zh-CN',
