@@ -20,6 +20,9 @@ const SSEMsgItem: FC<SSEMsgItemProps> = async (props) => {
   const [sseData, setSseData] = useState<any>(null);
   const [eventUsed, setEventUsed] = useState(false);
 
+  // 累积文本
+  // const sseDataTemp = useRef<any>(null);
+
   const fetchStreamData = async () => {};
 
   const sseRequest = async (

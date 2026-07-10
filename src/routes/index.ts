@@ -75,6 +75,11 @@ export const routes = [
     ],
   },
   {
+    name: '海量数据渲染',
+    path: '/heavy-page',
+    component: './heavy-page',
+  },
+  {
     name: '测试页面',
     path: '/test',
     icon: 'CodeOutlined',
