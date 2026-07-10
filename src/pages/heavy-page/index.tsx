@@ -20,7 +20,7 @@ const HeavyPage = () => {
 
   // 初始化海量数据
   useEffect(() => {
-    setData(generateData(1000000));
+    setData(generateData(100000));
   }, []);
 
   // 【requestIdleCallback】：非紧急的耗时统计
@@ -66,7 +66,7 @@ const HeavyPage = () => {
   // const rowSizes = new Array(1000).fill(true).map(() => 25 + Math.round(Math.random() * 55));
 
   // 【react-window】：虚拟表格渲染
-  // 100万条数据只渲染视口内的约 20 个 DOM 节点
+  // 数据只渲染视口内的约 20 个 DOM 节点
   const Row = useCallback(
     ({ index, style }: { index: number; style: React.CSSProperties }) => {
       const item = data[index];
@@ -109,7 +109,7 @@ const HeavyPage = () => {
           <span style={{ flex: 1 }}>数值</span>
         </div>
         <List
-          height={600} // 列表容器高度（必填）
+          height={500} // 列表容器高度（必填）
           itemCount={data.length} // 列表项总数（必填）
           itemSize={40} // 每个列表项的高度（必填）
           // itemSize={(index) => rowSizes[index]} // 传入函数
