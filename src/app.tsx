@@ -119,10 +119,11 @@ export const request: RequestConfig = {
   responseInterceptors: [
     // 直接写一个 function，作为拦截器
     (response) => {
-      // const url = response.config.url || '';
-      // if (url.endsWith('.md')) {
-      //   return response;
-      // }
+      const url = response.config.url || '';
+      // md 文件直接返回
+      if (url.endsWith('.md')) {
+        return response;
+      }
 
       // 不再需要异步处理读取返回体内容，可直接在data中读出，部分字段可在 config 中找到
       const { data = {} as any } = response;
@@ -132,6 +133,7 @@ export const request: RequestConfig = {
         localStorage.removeItem(USERNAME_KEY); // 清除本地 username
         history.push('/login');
       }
+
       return Promise.reject(data);
     },
   ],

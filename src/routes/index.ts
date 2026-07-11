@@ -88,7 +88,7 @@ export const routes = [
       {
         name: '权限演示',
         path: '/test/access',
-        component: './access',
+        component: './access-page',
       },
       // {
       //   name: ' CRUD 示例',
