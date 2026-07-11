@@ -7,6 +7,6 @@
 1. 运行 `pnpm build`
 2. 上传 dist 文件到服务器
 
-## github Action
+## github Actions
 
 ![Deploy Frontend](https://github.com/xgbbing/react-pc-public/actions/workflows/deploy.yml/badge.svg)
