@@ -1,0 +1,58 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - uses: actions/checkout@v4
+
+      # 安装 Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # 安装 pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10,
+          run_install: false
+
+      # 安装依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 检测代码
+      - name: Lint
+        run: pnpm lint
+
+      # 类型检查
+      - name: Type Check
+        run: pnpm typecheck
+
+      # 构建
+      - name: Build
+        run: pnpm build
+
+      # 配置 SSH
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      # 部署
+      - name: Deploy
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.VPS_PORT }}" \
+            dist/ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/opt/docker-app/html/home/

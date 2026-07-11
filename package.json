@@ -8,9 +8,11 @@
     "dev": "max dev --port=8004 --fast-refresh",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
+    "lint": "max lint",
     "prepare": "husky",
     "setup": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "typecheck": "tsc --noEmit"
   },
   "resolutions": {},
   "overrides": {},
@@ -52,5 +54,9 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-packagejson": "^2.5.22",
     "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=24"
   }
 }

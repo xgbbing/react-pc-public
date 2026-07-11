@@ -13,7 +13,7 @@ interface SSEMsgItemProps {
   leftRender: (props: any) => React.ReactElement;
   rightRender: (props: any) => React.ReactElement;
 }
-const SSEMsgItem: FC<SSEMsgItemProps> = async (props) => {
+const SSEMsgItem: FC<SSEMsgItemProps> = (props) => {
   const { eventInfo, leftRender, rightRender } = props;
   // const [isActive, setIsActive] = useState(false);
   const sseAbortController = useRef<AbortController | null>(null);
