@@ -46,6 +46,12 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      # 安装 rsync
+      - name: Install rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync
+          
       # 配置 SSH
       - name: Setup SSH
         run: |
