@@ -67,6 +67,13 @@ jobs:
           chmod 700 ~/.ssh
           ssh-keyscan -T 10 -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} 2>/dev/null >> ~/.ssh/known_hosts
 
+      # 检查path
+      - name: Check PATH
+        run: |
+          echo "$PATH"
+          which rsync || true
+          which ssh || true
+
       # 部署
       - name: Deploy
         run: |
