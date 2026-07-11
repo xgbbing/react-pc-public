@@ -1,5 +1,3 @@
-import image3 from '@/assets/image3.png';
-import image4 from '@/assets/image4.png';
 import { useMemoizedFn } from 'ahooks';
 import SliderCaptcha, { type ActionType } from 'rc-slider-captcha';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
@@ -9,6 +7,9 @@ export type CaptchaStatus = 'pending' | 'success' | 'error';
 export interface SliderCaptchaBlockProps {
   onStatusChange?: (status: CaptchaStatus) => void;
 }
+
+const image3 = '/images/image3.png';
+const image4 = '/images/image4.png';
 
 const SliderCaptchaBlock = forwardRef<
   { refresh: (resetErrorCount?: boolean) => void },
@@ -39,10 +40,17 @@ const SliderCaptchaBlock = forwardRef<
           bgUrl: image3,
           puzzleUrl: image4,
         })}
+        // 设置加载延迟，防止图片加载过快时产生 Loading 状态的闪烁
+        loadingDelay={300}
         onVerify={handleVerify}
         tipText={{
           success: '验证通过',
           default: '向右拖动滑块填充拼图',
+          loading: '正在加载验证码...',
+        }}
+        // 自定义加载时的图标或样式（可选）
+        loadingBoxProps={{
+          style: { backgroundColor: 'rgba(255, 255, 255, 0.8)' },
         }}
       />
     </div>

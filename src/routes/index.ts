@@ -78,6 +78,7 @@ export const routes = [
     name: '海量数据渲染',
     path: '/heavy-page',
     component: './heavy-page',
+    icon: 'FundProjectionScreenOutlined',
   },
   {
     name: '测试页面',

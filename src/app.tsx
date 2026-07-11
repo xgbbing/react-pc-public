@@ -1,5 +1,4 @@
 // 运行时配置
-import HeaderCity from '@/components/HeaderCity';
 import {
   RequestConfig,
   RunTimeLayoutConfig,
@@ -8,8 +7,10 @@ import {
 } from '@umijs/max';
 import { App, message } from 'antd';
 
-import logo from '@/assets/logo.png';
+import HeaderCity from '@/components/HeaderCity';
+import { TOKEN_KEY, USERNAME_KEY } from '@/constants';
 import { AccountService } from '@/services';
+import { preloadImages } from '@/utils/preload';
 import {
   ApiPlugin,
   JsErrorPlugin,
@@ -20,10 +21,10 @@ import {
   envEnum,
 } from 'auto-log-sdk';
 import packageJson from '../package.json';
-import { TOKEN_KEY, USERNAME_KEY } from './constants';
 
 const env = process.env.NODE_ENV;
 const log_api = process.env.LOG_API;
+const logo = '/images/logo.png';
 
 window.xgb_env = {
   env,
@@ -47,6 +48,9 @@ const monitor = new Monitor({
 
 monitor.install();
 
+// 预加载图片
+preloadImages();
+
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{ name: string }> {
@@ -57,6 +61,7 @@ export function rootContainer(container: React.ReactNode) {
   return <App>{container}</App>;
 }
 
+// 微应用共享全局状态
 export function useQiankunStateForSlave() {
   const globalModel = useModel('global');
   return {
@@ -127,7 +132,7 @@ export const request: RequestConfig = {
         localStorage.removeItem(USERNAME_KEY); // 清除本地 username
         history.push('/login');
       }
-      return response;
+      return Promise.reject(data);
     },
   ],
 };
