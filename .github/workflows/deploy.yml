@@ -16,7 +16,7 @@ jobs:
 
     steps:
       # 拉取代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # 安装 pnpm
       - uses: pnpm/action-setup@v4
@@ -25,7 +25,7 @@ jobs:
           run_install: false
 
       # 安装 Node
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: pnpm
@@ -46,17 +46,6 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # 安装 rsync
-      - name: Install rsync
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync
-
-      # 检查 rsync 
-      - name: Check rsync
-        run: |
-          which rsync
-          rsync --version
 
       # 配置 SSH
       - name: Setup SSH
