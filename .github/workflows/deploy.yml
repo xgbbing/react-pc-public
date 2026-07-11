@@ -1,5 +1,9 @@
 name: Deploy Frontend
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -8,10 +12,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       # 拉取代码
       - uses: actions/checkout@v4
+
+      # 安装 pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+          run_install: false
 
       # 安装 Node
       - uses: actions/setup-node@v4
@@ -19,27 +30,21 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      # 安装 pnpm
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10,
-          run_install: false
-
       # 安装依赖
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       # 检测代码
       - name: Lint
-        run: pnpm lint
+        run: pnpm run lint
 
       # 类型检查
       - name: Type Check
-        run: pnpm typecheck
+        run: pnpm run typecheck
 
       # 构建
       - name: Build
-        run: pnpm build
+        run: pnpm run build
 
       # 配置 SSH
       - name: Setup SSH
@@ -47,16 +52,18 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+          ssh-keyscan -T 10 -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} 2>/dev/null >> ~/.ssh/known_hosts
 
       # 部署
       - name: Deploy
         run: |
-          rsync -az --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.VPS_PORT }}" \
+          rsync -azv --delete --itemize-changes \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=yes" \
             dist/ \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/opt/docker-app/html/home/
-          
+
+      # 验证网站  
       - name: Verify Website
         run: |
-          curl --fail --silent https://xgbbing.win > /dev/null
+          curl --fail --show-error --silent --location --output /dev/null https://xgbbing.win
