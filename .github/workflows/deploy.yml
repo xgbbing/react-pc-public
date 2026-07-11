@@ -2,7 +2,7 @@ name: Deploy Frontend
 
 env:
   DEPLOY_ROOT: /opt/docker-app/html/home
-  VPS_HOST: xgbbing.win
+  TEST_HOST: xgbbing.win
 
 concurrency:
   group: deploy-production
@@ -78,4 +78,4 @@ jobs:
       # 验证网站  
       - name: Verify Website
         run: |
-          curl --fail --show-error --silent --location --output /dev/null https://${{ secrets.VPS_HOST }}
+          curl --fail --show-error --silent --location --output /dev/null https://${{ env.TEST_HOST }}
