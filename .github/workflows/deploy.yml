@@ -66,14 +66,19 @@ jobs:
           EOF
 
           ssh-keyscan -T 10 -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} 2>/dev/null >> ~/.ssh/known_hosts
+      
+      # 测试 SSH
+      - name: Test SSH
+        run: |
+          ssh -v vps "echo connected"
 
       # 部署
       - name: Deploy
         run: |
           rsync -azv --delete --itemize-changes \
-            -e "ssh vps" \
+            -e ssh \
             dist/ \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.DEPLOY_ROOT }}/
+            vps:${{ env.DEPLOY_ROOT }}/
 
       # 验证网站  
       - name: Verify Website
