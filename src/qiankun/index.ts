@@ -7,8 +7,8 @@ const microApps = [
   },
   {
     name: 'react-pc-app2',
-    entry: 'https://xgbbing.win/app2/',
-    // entry: 'http://localhost:8001/app2/',
+    entry: 'https://xgbbing.win/webapp/react-pc-app2/',
+    // entry: 'http://localhost:8001/webapp/react-pc-app2/',
   },
 ];
 

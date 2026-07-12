@@ -41,7 +41,7 @@ const TabCache: React.FC = () => {
           <div key="app2">
             <MicroAppWithMemoHistory
               name="react-pc-app2-embed"
-              url="/app2/"
+              url="/webapp/react-pc-app2/"
               autoSetLoading
               // 加载中显示的占位符
               fallback={<div>子应用加载中...</div>}
