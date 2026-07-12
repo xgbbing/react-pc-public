@@ -11,6 +11,8 @@ export const preloadImages = () => {
   const task = () => {
     IMAGE_POOL.forEach((url) => {
       const img = new Image();
+      img.decoding = 'async';
+      img.loading = 'lazy';
       img.src = url;
     });
   };
