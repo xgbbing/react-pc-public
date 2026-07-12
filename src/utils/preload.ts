@@ -8,20 +8,24 @@ const IMAGE_POOL = [
 ];
 
 export const preloadImages = () => {
-  const task = () => {
-    IMAGE_POOL.forEach((url) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.loading = 'lazy';
-      img.src = url;
-    });
+  let index = 0;
+  const loadNext = () => {
+    if (index >= IMAGE_POOL.length) return; // 加载完毕
+
+    const img = new Image();
+    img.decoding = 'async'; // 异步解码
+    // 注意：这里不要加 loading="lazy"，因为它是脱离 DOM 的
+    img.src = IMAGE_POOL[index];
+
+    index++;
+
+    // 核心：只在浏览器空闲时加载下一张，避免瞬间发起大量请求
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadNext);
+    } else {
+      setTimeout(loadNext, 200); // 兜底方案
+    }
   };
 
-  // 如果浏览器支持 requestIdleCallback，则空闲时执行
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(task);
-  } else {
-    // 降级处理：延迟 2 秒后执行
-    setTimeout(task, 2000);
-  }
+  loadNext();
 };
