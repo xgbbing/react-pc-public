@@ -68,6 +68,15 @@ const TestPage: React.FC = () => {
               autoSetLoading
               city={city}
               setCity={setCity}
+              // 加载中显示的占位符
+              fallback={<div>子应用加载中...</div>}
+              // 加载失败或执行报错时展示的降级组件
+              error={<div>子应用加载失败，请刷新重试</div>}
+              destroy
+              data={{
+                mode: 'embed',
+                containerId: 'root-react-pc-app2-embed',
+              }} // 传递嵌入模式标识
             />
           )}
         </Drawer>

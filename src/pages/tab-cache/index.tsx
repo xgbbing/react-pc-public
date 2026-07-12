@@ -25,8 +25,17 @@ const TabCache: React.FC = () => {
           <div key="app1">
             <MicroAppWithMemoHistory
               name="react-pc-app1-embed"
-              url="/app1/"
+              url="/webapp/react-pc-app1/"
               autoSetLoading
+              // 加载中显示的占位符
+              fallback={<div>子应用加载中...</div>}
+              // 加载失败或执行报错时展示的降级组件
+              error={<div>子应用加载失败，请刷新重试</div>}
+              destroy
+              data={{
+                mode: 'embed',
+                containerId: 'root-react-pc-app1-embed',
+              }} // 传递嵌入模式标识
             />
           </div>
           <div key="app2">
@@ -34,6 +43,15 @@ const TabCache: React.FC = () => {
               name="react-pc-app2-embed"
               url="/app2/"
               autoSetLoading
+              // 加载中显示的占位符
+              fallback={<div>子应用加载中...</div>}
+              // 加载失败或执行报错时展示的降级组件
+              error={<div>子应用加载失败，请刷新重试</div>}
+              destroy
+              data={{
+                mode: 'embed',
+                containerId: 'root-react-pc-app2-embed',
+              }} // 传递嵌入模式标识
             />
           </div>
         </KeepAlive>

@@ -5,7 +5,7 @@ import {
   history,
   useModel,
 } from '@umijs/max';
-import { App, message } from 'antd';
+import { App, ConfigProvider, message } from 'antd';
 
 import HeaderCity from '@/components/HeaderCity';
 import { TOKEN_KEY, USERNAME_KEY } from '@/constants';
@@ -58,7 +58,24 @@ export async function getInitialState(): Promise<{ name: string }> {
 }
 
 export function rootContainer(container: React.ReactNode) {
-  return <App>{container}</App>;
+  return (
+    <ConfigProvider>
+      <App>
+        {container}
+        {/* 核心：将容器放在这里，它们将永远存在于 DOM 中，不会被路由切换销毁 */}
+        <div id="root-react-pc-app1" data-qiankun="react-pc-app1"></div>
+        <div
+          id="root-react-pc-app1-embed"
+          data-qiankun="react-pc-app1-embed"
+        ></div>
+        <div id="root-react-pc-app2" data-qiankun="react-pc-app2"></div>
+        <div
+          id="root-react-pc-app2-embed"
+          data-qiankun="react-pc-app2-embed"
+        ></div>
+      </App>
+    </ConfigProvider>
+  );
 }
 
 // 微应用共享全局状态
@@ -92,6 +109,10 @@ export const layout: RunTimeLayoutConfig = () => {
     logout: async () => {
       await AccountService.logout();
       history.push('/login');
+    },
+    // 监听请求错误并提示
+    onPageLoadError: (error: any) => {
+      message.error(error?.message || '请求失败，请稍后再试');
     },
   };
 };
@@ -138,3 +159,30 @@ export const request: RequestConfig = {
     },
   ],
 };
+
+export const qiankun = {
+  // 应用加载之前
+  async bootstrap(props: any) {
+    console.log('[App1] bootstrap', props);
+  },
+  // 应用 render 之前触发
+  async mount(props: any) {
+    console.log('[App1] mount', props);
+  },
+  // 应用卸载之后触发
+  async unmount(props: any) {
+    console.log('[App1] unmount', props);
+  },
+};
+
+// 主应用 src/app.ts
+const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+  // 过滤并处理微前端相关的网络或加载异常
+  if (event.reason?.message?.includes('Failed to fetch')) {
+    console.warn('捕获到子应用网络请求异常，已进行全局兜底');
+    event.preventDefault(); // 阻止控制台抛出红字报错
+  }
+};
+
+// 在应用初始化时注册监听
+window.addEventListener('unhandledrejection', handleUnhandledRejection);

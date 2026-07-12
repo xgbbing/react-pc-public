@@ -105,12 +105,22 @@ export const routes = [
         name: 'app1应用',
         path: '/test/react-pc-app1/*',
         microApp: 'react-pc-app1',
+        // 关键：显式指定主应用中用于挂载子应用的容器 ID
+        microAppProps: {
+          containerId: 'root-react-pc-app1',
+          mode: 'full-screen', // 传递全屏模式标识
+        },
       },
 
       {
         name: 'app2应用',
         path: '/test/react-pc-app2/*',
         microApp: 'react-pc-app2',
+        // 关键：显式指定主应用中用于挂载子应用的容器 ID
+        microAppProps: {
+          containerId: 'root-react-pc-app2',
+          mode: 'full-screen', // 传递全屏模式标识
+        },
       },
       {
         name: 'tab切换缓存',
