@@ -56,7 +56,7 @@ export async function getInitialState(): Promise<{ name: string }> {
 
 export function rootContainer(container: React.ReactNode) {
   return (
-    <ConfigProvider>
+    <ConfigProvider warning={{ strict: false }}>
       <App>
         {container}
         {/* 核心：将容器放在这里，它们将永远存在于 DOM 中，不会被路由切换销毁 */}
