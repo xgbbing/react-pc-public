@@ -8,7 +8,7 @@ import {
 import { App, ConfigProvider, message } from 'antd';
 
 import HeaderCity from '@/components/HeaderCity';
-import { TOKEN_KEY, USERNAME_KEY } from '@/constants';
+import { PROXY_URL, TOKEN_KEY, USERNAME_KEY } from '@/constants';
 import { AccountService } from '@/services';
 import { preloadImages } from '@/utils/preload';
 import {
@@ -23,7 +23,7 @@ import {
 import packageJson from '../package.json';
 
 const env = process.env.NODE_ENV;
-const log_api = process.env.LOG_API;
+const log_api = `${PROXY_URL}/api/monitor/log`;
 const logo = '/images/logo.png';
 
 window.xgb_env = {
@@ -47,9 +47,6 @@ const monitor = new Monitor({
 });
 
 monitor.install();
-
-// 预加载图片
-preloadImages();
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -113,6 +110,9 @@ export const layout: RunTimeLayoutConfig = () => {
     // 监听请求错误并提示
     onPageLoadError: (error: any) => {
       message.error(error?.message || '请求失败，请稍后再试');
+    },
+    onPageLoad: () => {
+      preloadImages();
     },
   };
 };

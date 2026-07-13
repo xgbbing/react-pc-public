@@ -1,4 +1,5 @@
 import { defineConfig } from '@umijs/max';
+import { PROXY_API_URL, PROXY_URL } from './src/constants';
 import { apps } from './src/qiankun';
 import { routes } from './src/routes';
 
@@ -37,15 +38,20 @@ export default defineConfig({
     },
   },
   proxy: {
-    '/api': {
-      target: process.env.PROXY_API_URL,
+    '/api/': {
+      target: PROXY_API_URL,
       changeOrigin: true,
-      pathRewrite: { '^/api': '' },
+      secure: true,
     },
-    '/docs': {
-      target: process.env.PROXY_DOCS_URL,
+    '/docs/': {
+      target: PROXY_URL,
       changeOrigin: true,
-      pathRewrite: { '^/docs': '' },
+      secure: true,
+    },
+    '/webapp/': {
+      target: PROXY_URL,
+      changeOrigin: true,
+      secure: true,
     },
   },
 });

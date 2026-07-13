@@ -16,8 +16,9 @@ const VPSConfig: React.FC = () => {
     '/vps-config/v2ray': 'V2Ray和vmess',
     '/vps-config/vpn-speed': 'VPN速度优化',
     '/vps-config/xray': 'XRay-vless-reality',
+    '/vps-config/all': 'Summary',
   };
-  const name = pageMap[pathname] || 'README';
+  const name = pageMap[pathname] || 'Summary';
   const url = `/docs/${name}.md`;
 
   return (
