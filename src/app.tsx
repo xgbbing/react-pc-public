@@ -9,7 +9,7 @@ import { App, ConfigProvider, message } from 'antd';
 
 import logo from '@/assets/images/logo.png';
 import HeaderCity from '@/components/HeaderCity';
-import { PROXY_URL, TOKEN_KEY, USERNAME_KEY } from '@/constants';
+import { PROXY_API_URL, TOKEN_KEY, USERNAME_KEY } from '@/constants';
 import { AccountService } from '@/services';
 import { preloadImagesOnIdle } from '@/utils/preload';
 import {
@@ -24,7 +24,7 @@ import {
 import packageJson from '../package.json';
 
 const env = process.env.NODE_ENV;
-const log_api = `${PROXY_URL}/api/monitor/log`;
+const log_api = `${PROXY_API_URL}/api/monitor/log`;
 
 window.xgb_env = {
   env,

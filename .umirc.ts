@@ -1,5 +1,10 @@
 import { defineConfig } from '@umijs/max';
-import { PROXY_API_URL, PROXY_URL } from './src/constants';
+import {
+  PROXY_API_URL,
+  PROXY_URL_APP1,
+  PROXY_URL_APP2,
+  PROXY_URL_DOCS,
+} from './src/constants';
 import { apps } from './src/qiankun';
 import { routes } from './src/routes';
 
@@ -43,12 +48,17 @@ export default defineConfig({
       secure: true,
     },
     '/docs/': {
-      target: PROXY_URL,
+      target: PROXY_URL_DOCS,
       changeOrigin: true,
       secure: true,
     },
-    '/webapp/': {
-      target: PROXY_URL,
+    '/webapp/react-pc-app1/': {
+      target: PROXY_URL_APP1,
+      changeOrigin: true,
+      secure: true,
+    },
+    '/webapp/react-pc-app2/': {
+      target: PROXY_URL_APP2,
       changeOrigin: true,
       secure: true,
     },
