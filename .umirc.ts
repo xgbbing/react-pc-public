@@ -9,7 +9,7 @@ import { apps } from './src/qiankun';
 import { routes } from './src/routes';
 
 export default defineConfig({
-  favicons: ['logo.png'],
+  favicons: ['/logo.png'],
   define: {},
   antd: {
     // dark: true,
