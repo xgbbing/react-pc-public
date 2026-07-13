@@ -1,3 +1,5 @@
+import imageBg from '@/assets/images/valid-bg.png';
+import imageSlider from '@/assets/images/valid-slider.png';
 import { useMemoizedFn } from 'ahooks';
 import SliderCaptcha, { type ActionType } from 'rc-slider-captcha';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
@@ -7,9 +9,6 @@ export type CaptchaStatus = 'pending' | 'success' | 'error';
 export interface SliderCaptchaBlockProps {
   onStatusChange?: (status: CaptchaStatus) => void;
 }
-
-const imageBg = '/images/valid-bg.png';
-const imageSlider = '/images/valid-slider.png';
 
 const SliderCaptchaBlock = forwardRef<
   { refresh: (resetErrorCount?: boolean) => void },

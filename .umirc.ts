@@ -5,9 +5,7 @@ import { routes } from './src/routes';
 
 export default defineConfig({
   favicons: ['logo.png'],
-  define: {
-    'process.env': process.env,
-  },
+  define: {},
   antd: {
     // dark: true,
   },

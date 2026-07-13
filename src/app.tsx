@@ -7,10 +7,11 @@ import {
 } from '@umijs/max';
 import { App, ConfigProvider, message } from 'antd';
 
+import logo from '@/assets/images/logo.png';
 import HeaderCity from '@/components/HeaderCity';
 import { PROXY_URL, TOKEN_KEY, USERNAME_KEY } from '@/constants';
 import { AccountService } from '@/services';
-import { preloadImages } from '@/utils/preload';
+import { preloadImagesOnIdle } from '@/utils/preload';
 import {
   ApiPlugin,
   JsErrorPlugin,
@@ -24,7 +25,6 @@ import packageJson from '../package.json';
 
 const env = process.env.NODE_ENV;
 const log_api = `${PROXY_URL}/api/monitor/log`;
-const logo = '/images/logo.png';
 
 window.xgb_env = {
   env,
@@ -97,6 +97,20 @@ export const layout: RunTimeLayoutConfig = () => {
     menu: {
       locale: false,
     },
+    breadcrumbRender: (routers = []) => {
+      return routers.map((route, index) => {
+        // 判断是否是最后一项（即当前正在访问的叶子页面）
+        const isLastItem = index === routers.length - 1;
+        // 如果不是最后一项，说明它是父级目录
+        if (!isLastItem) {
+          return {
+            ...route,
+            linkPath: undefined,
+          };
+        }
+        return route;
+      });
+    },
     rightContentRender: (_: any, dom: any) => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <HeaderCity />
@@ -112,7 +126,7 @@ export const layout: RunTimeLayoutConfig = () => {
       message.error(error?.message || '请求失败，请稍后再试');
     },
     onPageLoad: () => {
-      preloadImages();
+      preloadImagesOnIdle();
     },
   };
 };

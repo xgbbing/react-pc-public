@@ -139,4 +139,11 @@ export const routes = [
       },
     ],
   },
+  {
+    name: '404',
+    path: '/*',
+    layout: false,
+    hideInMenu: true,
+    component: './error-page/404',
+  },
 ];

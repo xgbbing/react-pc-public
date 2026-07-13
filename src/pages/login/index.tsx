@@ -1,3 +1,4 @@
+import logo from '@/assets/images/logo.png';
 import SliderCaptchaBlock, {
   type CaptchaStatus,
 } from '@/components/SliderCaptchaBlock';
@@ -8,8 +9,6 @@ import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
 import { App, Button } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-
-const logo = '/images/logo.png';
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
