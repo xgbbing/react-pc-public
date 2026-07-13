@@ -1,8 +1,8 @@
 // 定义需要预加载的图片资源池
 const IMAGE_POOL = [
   // 验证码图片
-  '/images/image3.png',
-  '/images/image4.png',
+  '/images/valid-bg.png',
+  '/images/valid-slider.png',
   // 其他页面需要的图片
   '/images/logo.png',
 ];

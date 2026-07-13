@@ -8,8 +8,8 @@ export interface SliderCaptchaBlockProps {
   onStatusChange?: (status: CaptchaStatus) => void;
 }
 
-const image3 = '/images/image3.png';
-const image4 = '/images/image4.png';
+const imageBg = '/images/valid-bg.png';
+const imageSlider = '/images/valid-slider.png';
 
 const SliderCaptchaBlock = forwardRef<
   { refresh: (resetErrorCount?: boolean) => void },
@@ -37,8 +37,8 @@ const SliderCaptchaBlock = forwardRef<
       <SliderCaptcha
         actionRef={actionRef as any}
         request={async () => ({
-          bgUrl: image3,
-          puzzleUrl: image4,
+          bgUrl: imageBg,
+          puzzleUrl: imageSlider,
         })}
         // 设置加载延迟，防止图片加载过快时产生 Loading 状态的闪烁
         loadingDelay={300}
