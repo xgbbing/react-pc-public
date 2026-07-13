@@ -27,6 +27,7 @@ export default defineConfig({
   qiankun: {
     master: {
       apps,
+      autoSetLoading: true,
       // 开启样式隔离
       sandbox: {
         // strictStyleIsolation: true, // 方案 A：Shadow DOM 隔离（最彻底）

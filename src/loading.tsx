@@ -1,5 +1,9 @@
 import { ProSkeleton } from '@ant-design/pro-components';
 
 export default () => {
-  return <ProSkeleton type="list" />;
+  return (
+    <div style={{ padding: 24 }}>
+      <ProSkeleton type="list" />
+    </div>
+  );
 };
