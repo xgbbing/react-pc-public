@@ -9,10 +9,15 @@
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "lint": "max lint",
-    "prepare": "husky",
+    "prepare": "husky && chmod ug+x .husky/* || true",
     "setup": "max setup",
     "start": "npm run dev",
     "typecheck": "tsc --noEmit"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "max lint --fix"
+    ]
   },
   "resolutions": {},
   "overrides": {},
@@ -42,6 +47,8 @@
     "use-query-params": "^2.2.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
     "@types/crypto-js": "^4.2.2",
     "@types/markdown-it": "^14.1.2",
     "@types/react": "^18.3.31",
