@@ -2,12 +2,21 @@ import { AnalyticsService } from '@/services';
 import { EyeOutlined, RiseOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { useRequest } from '@umijs/max';
-import React from 'react';
-import { StatCard, VisitCharts } from './components';
+import React, { lazy, Suspense, useEffect, useLayoutEffect } from 'react';
+import { StatCard } from './components';
 import styles from './index.less';
-
+// 1. 懒加载重型组件
+const VisitCharts = lazy(() => import('./components/VisitCharts'));
 const HomePage: React.FC = () => {
   const { data: overview, loading } = useRequest(AnalyticsService.getOverview);
+
+  useEffect(() => {
+    console.log('44444');
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log('22222');
+  }, []);
 
   return (
     <PageContainer ghost title={false}>
@@ -31,7 +40,10 @@ const HomePage: React.FC = () => {
           />
         </div>
 
-        <VisitCharts />
+        {/* 2. 用 Suspense 包裹，指定 fallback */}
+        <Suspense fallback={<div>图表加载中...</div>}>
+          <VisitCharts />
+        </Suspense>
       </div>
     </PageContainer>
   );

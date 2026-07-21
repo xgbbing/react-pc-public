@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FixedSizeList as List } from 'react-window';
 
 // 模拟生成海量数据
@@ -17,6 +23,14 @@ const HeavyPage = () => {
   const [data, setData] = useState<any[]>([]);
   const [summary, setSummary] = useState('正在计算...');
   const [scrollY, setScrollY] = useState(0);
+
+  const [query, setQuery] = useState('');
+  // 1. 获取延迟版本的查询词
+  const deferredQuery = useDeferredValue(query);
+  // 2. 使用延迟词进行耗时计算（过滤列表）
+  const filteredList = useMemo(() => {
+    return data.filter((item) => item.name.includes(deferredQuery));
+  }, [data, deferredQuery]);
 
   // 初始化海量数据
   useEffect(() => {
@@ -69,7 +83,7 @@ const HeavyPage = () => {
   // 数据只渲染视口内的约 20 个 DOM 节点
   const Row = useCallback(
     ({ index, style }: { index: number; style: React.CSSProperties }) => {
-      const item = data[index];
+      const item = filteredList[index];
       return (
         <div
           style={{
@@ -85,11 +99,14 @@ const HeavyPage = () => {
         </div>
       );
     },
-    [data],
+    [filteredList],
   );
 
   return (
     <div style={{ padding: 20 }}>
+      {/* 3. 输入框绑定原始状态，保证输入绝对流畅 */}
+      <div>名称：</div>
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
       <h2>复杂业务页面性能优化演示</h2>
       <p style={{ color: '#666' }}>当前滚动位置: {Math.round(scrollY)} px</p>
       <p style={{ color: 'green' }}>{summary}</p>
@@ -110,7 +127,7 @@ const HeavyPage = () => {
         </div>
         <List
           height={500} // 列表容器高度（必填）
-          itemCount={data.length} // 列表项总数（必填）
+          itemCount={filteredList.length} // 列表项总数（必填）
           itemSize={40} // 每个列表项的高度（必填）
           // itemSize={(index) => rowSizes[index]} // 传入函数
           width="100%" // 列表容器宽度（必填）

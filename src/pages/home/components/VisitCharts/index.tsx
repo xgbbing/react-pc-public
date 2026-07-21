@@ -12,7 +12,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import styles from './index.less';
 
 // 注册 ECharts 组件
@@ -160,6 +160,14 @@ const VisitCharts: React.FC = () => {
       ],
     };
   }, [data, period]);
+
+  useEffect(() => {
+    console.log('33333');
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log('11111');
+  }, []);
 
   return (
     <Card
