@@ -1,16 +1,21 @@
 import { CommonProvider } from '@/context/commonContext';
-import { Button } from 'antd';
+import { App, Button, Space, Table, TablePaginationConfig } from 'antd';
 import React, { lazy, Suspense, useRef, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { flushSync } from 'react-dom';
 // import TabsContent from './components/TabsContent';
 // 使用 React.lazy 动态导入组件
 const TabsContent = lazy(() => import('./components/TabsContent'));
-
 const TabsPage: React.FC = () => {
   const ref = useRef<any>();
   // const [count, setCount] = useState(2);
   const [data, setData] = useState({ count: 2 });
 
+  const { message } = App.useApp();
+  const text = 'Hello, world!';
+  const onCopy = () => {
+    message.success('复制成功');
+  };
   const handle = () => {
     flushSync(() => {
       // setCount(3);
@@ -77,25 +82,99 @@ const TabsPage: React.FC = () => {
     console.log('promise resolve');
   });
 
+  const [pageConfig, setPageConfig] = useState<TablePaginationConfig>({
+    current: 1,
+    pageSize: 10,
+    total: 100,
+  });
+
+  const columns = [
+    {
+      title: 'name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    { title: 'age', dataIndex: 'age', key: 'age' },
+  ];
+
+  const tableData = [
+    {
+      name: 'name1',
+      age: 1,
+      key: '1',
+    },
+    {
+      name: 'name2',
+      age: 2,
+      key: '2',
+    },
+  ];
+
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    console.log(pagination, '========page');
+    setPageConfig(pagination);
+  };
+
+  const wsRef = useRef<WebSocket | null>(null);
+
+  const openWebsocket = () => {
+    const ws = new WebSocket('ws://localhost:8080/ws');
+    wsRef.current = ws;
+    ws.onopen = () => {
+      console.log('WebSocket 已连接');
+      ws.send('hello');
+    };
+    ws.onmessage = (event) => {
+      console.log('收到服务器消息：', event.data);
+    };
+    ws.onclose = () => {
+      console.log('WebSocket 已关闭');
+    };
+    ws.onerror = (error) => {
+      console.error('WebSocket 错误：', error);
+    };
+  };
+
+  const closeWebsocket = () => {
+    if (wsRef.current) wsRef.current.close();
+  };
+
   return (
     <CommonProvider>
       <Suspense fallback={<div className="p-4">正在加载...</div>}>
         <TabsContent ref={ref} />
       </Suspense>
 
-      <div id="myDiv">
-        <Button
-          onClick={() => {
-            ref.current.create();
-          }}
-        >
-          test
-        </Button>
-      </div>
-
-      <div>
+      <Space>
+        <div>
+          <CopyToClipboard text={text} onCopy={onCopy}>
+            <Button>复制</Button>
+          </CopyToClipboard>
+        </div>
         <Button onClick={handle}>handle</Button>
-      </div>
+        <div id="myDiv">
+          <Button
+            onClick={() => {
+              ref.current.create();
+            }}
+          >
+            test
+          </Button>
+        </div>
+        <Button onClick={openWebsocket} type="primary">
+          连接websocket
+        </Button>
+        <Button onClick={closeWebsocket} type="primary">
+          关闭websocket
+        </Button>
+      </Space>
+
+      <Table
+        columns={columns}
+        dataSource={tableData}
+        pagination={pageConfig}
+        onChange={handleTableChange}
+      />
     </CommonProvider>
   );
 };

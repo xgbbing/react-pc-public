@@ -2,16 +2,13 @@ import useCommonInfo from '@/context/commonContext/useCommonInfo';
 import { getUrlParameter } from '@/utils/format';
 import { logger } from '@/utils/logger';
 import { useDebounceFn, useMemoizedFn, useRequest } from 'ahooks';
-import { App, Button, Space } from 'antd';
+import { Button, Space } from 'antd';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 const TabsContent = ({}, ref: any) => {
   const { state, updatedStepsKey } = useCommonInfo();
-  const text = 'Hello, world!';
 
   const [isClient, setIsClient] = useState(false);
-
-  const { message } = App.useApp();
 
   // 使用示例
   const key = getUrlParameter('key');
@@ -32,10 +29,6 @@ const TabsContent = ({}, ref: any) => {
       },
     },
   );
-
-  const onCopy = () => {
-    message.success('复制成功');
-  };
 
   const create = useMemoizedFn(() => {
     logger('create function called');
@@ -72,12 +65,6 @@ const TabsContent = ({}, ref: any) => {
           切换为tab1
         </Button>
       </Space>
-
-      <div>
-        <CopyToClipboard text={text} onCopy={onCopy}>
-          <Button>复制</Button>
-        </CopyToClipboard>
-      </div>
     </div>
   );
 };
